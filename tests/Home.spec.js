@@ -1,6 +1,6 @@
 const{test,expect}=require('@playwright/test')
 
-test('home page', async ({page}) => {
+test.only('home page', async ({page}) => {
      
     await page.goto('https://demoblaze.com/');
 
@@ -15,6 +15,11 @@ test('home page', async ({page}) => {
    //to validate url
    await expect(page).toHaveURL('https://demoblaze.com/');
 
+   //Verify if all the elements like header, footer, and main content are displayed correctly
+   await expect(page.locator("//li[@class='nav-item active']//a[@class='nav-link']")).toBeVisible();
+   await expect(page.locator("//a[normalize-space()='Contact']")).toBeVisible();
+   await expect(page.locator("//a[@id='cartur']")).toBeVisible();
+   await expect(page.locator("//div[@id='footc']")).toBeVisible();
    await  page.close();
 })
 
@@ -28,7 +33,8 @@ test('logo',async({page}) => {
      
 })
 
-test.only('category',async ({page}) => {
+
+test('category',async ({page}) => {
     await page.goto('https://demoblaze.com/');
 
     const cat=await page.$$("(//div[@class='list-group'])[1]")
